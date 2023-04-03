@@ -5,13 +5,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Weather Dashboard</title>
 </head>
-<body>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<body class="is-dark">
+    <section class="hero is-link is-small has-background-black">
+        <div class="hero-body">
+            <h1 class="title" onclick="location.reload()">
+                Weather Dashboard
+            </h1>
+        </div>
+    </section>
+    <section class="section">
+        <div class="columns">
+            <div class="column is-one-quarter">
+                <div class="container">
+                    <div class="notification is-dark">
+                        <input class="input" type="text" placeholder="Enter city name">
+                        <input class="button is-success is-fullwidth is-focused has-background-black" id="submit" type="submit" value="Submit"><hr>
+                        <div id="cities"></div><hr>
+                        <input class="button is-warning is-fullwidth is-focused" id="clear" type="submit" value="Clear History">
+                    </div>
+                </div>
+            </div>
+            <div class="notification is-dark" id="startScreen">
+                <div class="columns">
+                  <div class="column forecast" id="startScreen">
+                    <h4>Welcome to the Weather Dashboard!</h4>
+                    <p>In order to get started, type in a city in the search bar to pull up its current weather as well as its upcoming 5 day forcast!</p>  
+                  </div>
+                  <div class="column forecast" id="startScreen">
+                    <img class= 'started-gif'src="https://coalregioncanary.com/wp-content/uploads/2020/08/summer.gif">
+                  </div>
+                  <div class="column forecast" id="startScreen">
+                    <h4>Features!</h4>
+                    <p>After searching you will see that your latest searches are saved. If you would like to clear them click "Clear History"!</p>
+                  </div>
+                </div>    
+              </div>
+            <div class="column is-hidden">
+                <div class="container notification is-dark">
+                    <div class="city-notification is-dark citySearch">
+                    <div id="heading">
+                      <h3></h3>
+                      <img>
+                    </div>
+                    <p></p><p></p><p></p>   
+                    </div>
+                </div>
+                <div class="container">
+                    <h2>5-Day Forecast</h2>
+                    <div class="notification is-dark">
+                      <div class="columns">
+                        <div class="column forecast" id="day1">
+                          <h4></h4>
+                          <img>
+                          <p></p><p></p><p></p>  
+                        </div>
+                        <div class="column forecast" id="day2">
+                          <h4></h4>
+                          <img>
+                          <p></p><p></p><p></p>
+                        </div>
+                        <div class="column forecast" id="day3">
+                          <h4></h4>
+                          <img>
+                          <p></p><p></p><p></p>
+                        </div>
+                        <div class="column forecast" id="day4">
+                          <h4></h4>
+                          <img>
+                          <p></p><p></p><p></p>
+                        </div>
+                        <div class="column forecast" id="day5">
+                          <h4></h4>
+                          <img>
+                          <p></p><p></p><p></p>
+                        </div>
+                      </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <script src="./assets/script.js"></script>
 </body>
 </html>
