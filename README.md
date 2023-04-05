@@ -1,7 +1,7 @@
 Weather Dashboard
 
 URL
-https://github.com/rslaughter12/Weather-Dashboard
+https://github.com/rslaughter12/Weather-Dashboard/
 
 Description
 This website was created to give the user a quick and easy way to look up current and upcoming forecast for a city of their choice. 
