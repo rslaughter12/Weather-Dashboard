@@ -5,12 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/style.css">
+    <!-- I recently used Bulma CSS framework, in project one with my group, used again here. -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <title>Weather Dashboard</title>
 </head>
 <body class="is-dark">
     <section class="hero is-link is-small has-background-black">
         <div class="hero-body">
+          <!-- The onclick function below causes the webpage to refresh when the title of the page is clicked.
+          this will reload the start screen as well as pull the data from local storage. -->
             <h1 class="title" onclick="location.reload()">
                 Weather Dashboard
             </h1>
@@ -28,6 +31,8 @@
                     </div>
                 </div>
             </div>
+            <!-- this is the start screen that user is first met with when they open the webpage.   -->
+            <!-- a class of "is-hidden" is added all id's of "startScreen" which is being grabbed through the js function in line 149 of script.js -->
             <div class="notification is-dark" id="startScreen">
                 <div class="columns">
                   <div class="column forecast" id="startScreen">
@@ -44,6 +49,7 @@
                 </div>    
               </div>
             <div class="column is-hidden">
+            <!-- the empty elements below are being populated through the API that is being fetched in the script.js -->
                 <div class="container notification is-dark">
                     <div class="city-notification is-dark current">
                     <div id="heading">

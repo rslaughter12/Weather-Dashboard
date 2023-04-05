@@ -6,10 +6,11 @@ const currentDiv = document.querySelector(".current");
 const headingDiv = document.querySelector("#heading");
 const citiesDiv = document.getElementById("cities");
 const $hidden = document.querySelector(".is-hidden");
-let citiesSearched = []; // array to store the city names that are searched
-getStorage(); // calls the function when page loads
+let citiesSearched = []; // This is an array that is empty here, but is being populated throughout the functions that will be used to set and pull data to and from local storage.
+getStorage(); // This allows the user to have their data pulled upon loading the website. 
 
-//gets coordinates of the city that we enter in the search bar
+// // This function is using the openweatherAPI to fetch the data and coordinates that are being searched by the user. 
+// In line 25 the function hideElements is being called to hide the start screen when a city has been searched. 
 function getCityCoordinates(cityName) {
     const url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=3&appid=${API_KEY}`;
 
@@ -25,8 +26,8 @@ function getCityCoordinates(cityName) {
             let latitude = data[0].lat;
             let longitude = data[0].lon;
             $hidden.setAttribute('class','column');   
-            getCurrentWeather(latitude,longitude);
-            getForecastData(latitude,longitude);
+            getLiveWeather(latitude,longitude);
+            getForecast(latitude,longitude);
         }
     })
     .catch(function (error) {
@@ -35,18 +36,18 @@ function getCityCoordinates(cityName) {
 }    
 
 //gets current weather if we give latitude and longitude of the city
-function getCurrentWeather(lat,lon) {
+function getLiveWeather(lat,lon) {
     let currentWeatherURL = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`;
     fetch(currentWeatherURL)
     .then(function(response){
         return response.json();    
     }).then(function(data){
-        renderCurrentWeather(data);
+        renderLiveWeather(data);
     })
 }
 
-//gets forecast weather if we give latitude and longitude of the city
-function getForecastData(lat,lon) {
+// This function is having the API pull the lat and lon coordiantes to then pull the forecast weather for the 5 day forecast. 
+function getForecast(lat,lon) {
     let forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${API_KEY}`;
     fetch(forecastURL)
     .then(function(response){
@@ -56,8 +57,8 @@ function getForecastData(lat,lon) {
     })
 }
 
-//renders current weather on the screen
-function renderCurrentWeather(data) {
+// This takes the information that the API is pulling and then putting it on the screen for the user to see. 
+function renderLiveWeather(data) {
     let icon = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;   
     headingDiv.children[0].textContent = data.name + ' (' + new Date().toLocaleDateString() + ')';
     headingDiv.children[1].setAttribute('src', icon);
@@ -79,7 +80,7 @@ function renderForecastWeather(data) {
         }
     }
 
-    //for loop to render 5-day forecast at 9am 
+    // This is a for loop that is taking the data for the 5 day forecast. 
     for(let i=index,j=1; i< 40; i +=8,j++){
         let $div = document.getElementById(`day${j}`);
         let icon = `https://openweathermap.org/img/wn/${data.list[i].weather[0].icon.slice(0,2)}d@2x.png`;
@@ -92,7 +93,11 @@ function renderForecastWeather(data) {
     
 }   
 
-//stores the searched city in the local storage
+// The function below has a goal of putting the cities that the user has searched in their local storage so it can be pulled in the future when the user loads the site.
+// What it is saying below is that if the city that was searched is already in the local storage, return the function. 
+// If the city that is searched is not already in the local storage, then push that city to the local storange in a JSON String format.
+// Then create a button that contains the city name in it, that way that information can be used in the getCityCoordinates function. 
+// It then appends all new cities to the bottom of the list. 
 function setStorage(city){
     if(citiesSearched.includes(city)){
         return;
@@ -106,7 +111,8 @@ function setStorage(city){
     }
 }
 
-//gets the list of searched cities from storage
+// The function below is taking the data that is in the user's local storage and then using that data to populate the buttons with the city name in it.
+// This allows the user to be able to use the getCityCoordinates function based on their prior searches, even after the page was just loaded. 
 function getStorage(){
     let dummy = JSON.parse(localStorage.getItem("citiesSearched"));
     if(dummy){
@@ -123,22 +129,25 @@ function getStorage(){
     
 }
 
-//clears search history
+// The function below is the action of clearing the user's local storage. This gets called with an event listening in line 141 with the "Clear History Button"
 function clearHistory() {
     localStorage.clear();
     citiesDiv.textContent = '';
 } 
 
-//adds event listener for the search button
+// The function below creates an event listening for the "Submit" button that is below the search bar.
+// This will complete the getCityCoordinates function using the text that the user has inputed into the search bar. 
 buttonEl.addEventListener("click", function(){
     let cityName = inputEl.value;
     getCityCoordinates(cityName);
 });
 
-//adds event listener to the clear history botton
+// The function below is adding an event listening to the clearEl button which is the "Clear History" button.
+// This will then delete and remove all information that is in the user's local storage. 
 clearEl.addEventListener('click', clearHistory);
 
-//adds event listener for cities that are in the search history
+// The function below is adding an event listener to the created citiesDiv elements that completes the getCityCoordinates function
+// using the text that is in the citiesDiv, which is the city that was recently searched, so it will successfully pull the data on the selected city.
 citiesDiv.addEventListener("click", function(event){
     let e = event.target;
     if(e.matches(".city")) {

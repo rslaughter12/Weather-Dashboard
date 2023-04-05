@@ -1,4 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+/* using a font from google fonts for the webpage through the important css command */
+
+/* This is using the universal selector to apply a standard font and formatted to the whole webpage. */
 *{
     margin: 0;
     padding: 0;
@@ -38,10 +41,12 @@ p {
     text-align: center;
 
 }
+/* this is customizing the size of the gif that is displayed on the start screen. */
 .starter-gif {
    width: 500px;
    height: auto;
 }
+/* this is changing the cursor style when it is hoveing of the title at the top of the webpage. */
 .title:hover {
     cursor: pointer;
 }
