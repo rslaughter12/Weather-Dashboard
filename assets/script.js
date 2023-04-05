@@ -9,6 +9,7 @@ const $hidden = document.querySelector(".is-hidden");
 let citiesSearched = []; // array to store the city names that are searched
 getStorage(); // calls the function when page loads
 
+//gets coordinates of the city that we enter in the search bar
 function getCityCoordinates(cityName) {
     const url = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=3&appid=${API_KEY}`;
 
@@ -18,8 +19,9 @@ function getCityCoordinates(cityName) {
     }).then(function(data){
         console.log(data);
         if(data.length === 0){
-            alert('Cannot find, please try again!')
+            alert('Please spell the city name accurately!!')
         }else{
+            hideElement();
             let latitude = data[0].lat;
             let longitude = data[0].lon;
             $hidden.setAttribute('class','column');   
@@ -28,7 +30,7 @@ function getCityCoordinates(cityName) {
         }
     })
     .catch(function (error) {
-        alert('Cannot find, please try again!');
+        alert('Unable to fetch city coordinates. Please spell it correctly!');
     });    
 }    
 
@@ -143,3 +145,8 @@ citiesDiv.addEventListener("click", function(event){
         getCityCoordinates(e.textContent);
     }
 });
+
+function hideElement() {
+    var startScreen = document.getElementById("startScreen");
+    startScreen.classList.add("is-hidden");
+  }
